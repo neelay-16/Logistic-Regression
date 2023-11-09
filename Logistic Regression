@@ -1,0 +1,52 @@
+import pandas as pd
+dataset = pd.read_csv('titanic_train.csv')
+dataset.info()
+import seaborn as sns
+sns.set()
+sns.countplot(dataset['Survived'], hue='Sex', data=dataset)
+gender = dataset['Sex']
+sns.countplot(gender)
+sns.heatmap(dataset.isnull(),cbar=False)
+age=dataset['Age']
+age.dropna()
+age.mean()
+def lw(cols):
+    age=cols[0]
+    Pclass=cols[1]
+    if pd.isnull(age):
+        if Pclass == 1:
+            return 38
+        elif Pclass == 2:
+            return 30
+        elif Pclass == 3:
+            return 25
+        else:
+            return 30
+    else:
+        return age
+dataset['Age'] = dataset[['Age','Pclass']].apply(lw,axis=1)  
+dataset.drop('Cabin',axis=1,inplace=True)
+y=dataset['Survived']
+sex=dataset['Sex']
+sex=pd.get_dummies(sex,drop_first=True)
+pclass = dataset['Pclass']
+pclass=pd.get_dummies(pclass,drop_first=True)
+sibsp = dataset['SibSp']
+sibsp=pd.get_dummies(sibsp,drop_first=True)
+parch = dataset['Parch']
+parch=pd.get_dummies(parch,drop_first=True)
+embark = dataset['Embarked']
+embark=pd.get_dummies(embark,drop_first=True)
+age=dataset['Age']
+X=pd.concat([age,embark,parch,sibsp,pclass,sex],axis=1)
+from sklearn.linear_model import LogisticRegression
+model=LogisticRegression()
+model.fit(X_train,y_train)
+X.columns = X.columns.astype(str)
+model.coef_
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.30,random_state=42)
+y_pred = model.predict(X_test)
+from sklearn.metrics import confusion_matrix
+confusion_matrix(y_test,y_pred)
+

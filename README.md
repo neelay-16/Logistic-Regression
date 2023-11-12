@@ -51,5 +51,14 @@ Doing another cleaning of data by changing the string in 'Sex' column to number 
 ![image](https://github.com/neelay-16/Logistic-Regression/assets/135517502/c9317024-2ec5-4f29-9e40-77098dec8700)
 
 
+
 # Model Building
 
+We build a logistic regression model to predict survival.
+
+![image](https://github.com/neelay-16/Logistic-Regression/assets/135517502/319a9235-af31-40e3-aebf-5d38cf2a13f5)
+
+
+# Conclusion
+
+This README file provides an overview of a logistic regression-based Titanic survival prediction project. The code includes data preprocessing, feature engineering, model building, and evaluation.
